@@ -55,13 +55,13 @@ Public IPv4 address
 ```bash
 chmod 400 rama-ec2.pem
 blue-1
-ssh -i rama-ec2.pem ec2-user@34.228.55.11    
+ssh -i priya-blue-green-lab5-key.pem ec2-user@34.227.107.240
 blue-2
-ssh -i rama-ec2.pem ec2-user@3.93.171.13 
+ssh -i priya-blue-green-lab5-key.pem ec2-user@54.80.103.199
 green-1    
-ssh -i rama-ec2.pem ec2-user@34.234.64.136   
+ssh -i priya-blue-green-lab5-key.pem ec2-user@54.175.201.182
 green-2
-ssh -i rama-ec2.pem ec2-user@34.228.69.115   
+ssh -i priya-blue-green-lab5-key.pem ec2-user@34.224.214.201
 
 ```
 

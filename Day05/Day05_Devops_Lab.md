@@ -97,7 +97,7 @@ SSH into each EC2 instance.
 ## Connect to EC2
 
 ```bash
-ssh -i mykey.pem ec2-user@<EC2-PUBLIC-IP>
+ssh -i priya-blue-green-lab5-key.pem ec2-user@<EC2-PUBLIC-IP>
 ```
 
 ## Install Apache
