@@ -1,0 +1,64 @@
+# Multi-Environment Provisioning
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Multi-environment CloudFormation template for EC2 instance
+
+Parameters:
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Existing EC2 key pair for SSH
+
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - stg
+      - prod
+    Description: Select the environment type for the server
+
+Resources:
+  PriyaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH and HTTP
+
+      SecurityGroupIngress:
+
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  PriyaWebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: "{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}"
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+
+      SecurityGroups:
+        - !Ref PriyaSecurityGroup
+
+      Tags:
+        - Key: Name
+          Value: !Sub "Priya-EC2Instance-${Environment}"
+
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          sudo yum update -y
+          sudo yum install httpd -y
+          sudo systemctl start httpd
+          sudo systemctl enable httpd
+          echo "<h1>Welcome to ${Environment} server</h1>" | sudo tee /var/www/html/index.html
+
+Outputs:
+  WebsiteURL:
+    Value: !Sub "http://${PriyaWebServer.PublicIp}"
+  Environment:
+    Value: !Sub "${Environment}"

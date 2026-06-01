@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Simple EC2 Deployment using CloudFormation
+
+Resources:
+
+  PriyaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH and HTTP
+
+      SecurityGroupIngress:
+
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  RamaEC2Instance:
+    Type: AWS::EC2::Instance
+
+    Properties:
+      ImageId: ami-00e801948462f718a
+      InstanceType: t2.micro
+      KeyName: priya-ec2
+
+      SecurityGroups:
+        - !Ref PriyaSecurityGroup
+
+      Tags:
+        - Key: Name
+          Value: PriyaEC2Instance-Day09
