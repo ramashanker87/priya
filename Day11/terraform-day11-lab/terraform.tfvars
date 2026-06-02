@@ -1,0 +1,7 @@
+aws_region         = "us-east-1"
+environment        = "dev"
+project_name       = "day11-terraform-priya"
+bucket_name        = "priya-day11-terraform-demo-bucket-01062026"
+vpc_cidr           = "10.10.0.0/16"
+public_subnet_cidr = "10.10.1.0/24"
+instance_type      = "t2.micro"
