@@ -1,0 +1,6 @@
+aws_region        = "us-east-1"
+aws_profile       = "devops"
+environment       = "dev"
+project_name      = "priya-day12-terraform"
+state_bucket_name = "priya-day12-tf-state-02062026"
+lock_table_name   = "priya-day12-terraform-locks"
