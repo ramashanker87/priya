@@ -28,8 +28,8 @@ Replace the image URI and region as required.
 
 ```bash
 aws cloudformation deploy \
-  --stack-name priya-ecs-fargate \
-  --template-file Day16_ecs_fargate_lab.yml \
+  --stack-name priya-ecs-fargate-day19 \
+  --template-file ecs-cluster-priya.yml \
   --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides \
       VpcId=vpc-0ca5b92e540035af6 \

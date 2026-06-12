@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  ecs-app:
+    image: priya-python-app1-ecr:v1
+    container_name: priya-ecs-app1
+    environment:
+      - PARTICIPANT_NAME=Priya
+  eks-app:
+      image: priya-python-app2-ecr:v1
+      container_name: priya-eks-app2
+      environment:
+        - PARTICIPANT_NAME=Priya

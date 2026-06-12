@@ -142,17 +142,17 @@ cat > eks-cluster-trust-policy.json <<'JSON'
 JSON
 
 aws iam create-role \
-  --role-name eksClusterRole \
+  --role-name eksClusterRole-priya \
   --assume-role-policy-document file://eks-cluster-trust-policy.json \
   --profile devops
 
 aws iam attach-role-policy \
-  --role-name eksClusterRole \
+  --role-name eksClusterRole-priya \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy \
   --profile devops
 
 export EKS_CLUSTER_ROLE_ARN=$(aws iam get-role \
-  --role-name eksClusterRole \
+  --role-name eksClusterRole-priya \
   --query 'Role.Arn' \
   --output text \
   --profile devops)
@@ -241,19 +241,19 @@ echo $SUBNET_IDS
 
 ```bash
 aws eks create-cluster \
-  --name priya-eks-cluster \
+  --name priya-day19-eks-cluster \
   --region us-east-1 \
   --role-arn $EKS_CLUSTER_ROLE_ARN \
   --resources-vpc-config subnetIds=$(echo $SUBNET_IDS | sed 's/ /,/g') \
   --profile devops
 
 aws eks wait cluster-active \
-  --name priya-eks-cluster \
+  --name priya-day19-eks-cluster \
   --region us-east-1 \
   --profile devops
 
 aws eks describe-cluster \
-  --name priya-eks-cluster \
+  --name priya-day19-eks-cluster \
   --region us-east-1 \
   --query 'cluster.status' \
   --profile devops
@@ -294,22 +294,22 @@ cat > eks-nodegroup-trust-policy.json <<'JSON'
 JSON
 
 aws iam create-role \
-  --role-name eksNodeGroupRole \
+  --role-name eksNodeGroupRole-priya \
   --assume-role-policy-document file://eks-nodegroup-trust-policy.json \
   --profile devops
 
 aws iam attach-role-policy \
-  --role-name eksNodeGroupRole \
+  --role-name eksNodeGroupRole-priya \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
   --profile devops
 
 aws iam attach-role-policy \
-  --role-name eksNodeGroupRole \
+  --role-name eksNodeGroupRole-priya \
   --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly \
   --profile devops
 
 aws iam attach-role-policy \
-  --role-name eksNodeGroupRole \
+  --role-name eksNodeGroupRole-priya \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy \
   --profile devops
 

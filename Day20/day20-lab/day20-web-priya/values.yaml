@@ -1,0 +1,30 @@
+replicaCount: 2
+
+image:
+  repository: 386757865964.dkr.ecr.us-east-1.amazonaws.com/day20-web-priya
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8080
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 300m
+    memory: 256Mi
+
+env:
+  APP_VERSION: v1
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+hpa:
+  enabled: true
